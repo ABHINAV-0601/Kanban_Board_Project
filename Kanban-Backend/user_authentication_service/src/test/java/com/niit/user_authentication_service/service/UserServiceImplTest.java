@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 @ExtendWith(MockitoExtension.class)
-public class UserAuthenticationServiceTest {
+public class UserServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
@@ -39,7 +39,7 @@ public class UserAuthenticationServiceTest {
         user1=null;
     }
     @Test
-    public void givenUserToSaveReturnSavedUserSuccess() throws UserAlreadyExitException {
+    public void saveUserSuccess() throws UserAlreadyExitException {
         when(userRepository.findById(user1.getEmailId())).thenReturn(Optional.ofNullable(null));
         when(userRepository.save(any())).thenReturn(user1);
         assertEquals(user1,userService.saveUser(user1));
@@ -48,7 +48,7 @@ public class UserAuthenticationServiceTest {
     }
 
     @Test
-    public void givenUserToSaveReturnUserFailure(){
+    public void saveUserFailure(){
         when(userRepository.findById(user1.getEmailId())).thenReturn(Optional.ofNullable(user1));
         assertThrows(UserAlreadyExitException.class,()->userService.saveUser(user1));
         verify(userRepository,times(0)).save(any());

@@ -1,0 +1,36 @@
+#card {
+    background: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#head {
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: xx-large;
+    color: rgba(0, 0, 0, 0.507);
+}
+
+#container {
+
+    margin: auto;
+    width: 50%;
+    box-shadow: grey 4px 4px 4px 4px;
+}
+
+.field {
+    margin-right: 50px;
+}
+
+#title{
+    width: 100%;
+}
+
+button {
+    margin-left: 40px;
+}

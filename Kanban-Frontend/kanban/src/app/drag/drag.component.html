@@ -1,0 +1,307 @@
+<mat-toolbar class="toolbar">
+  <mat-toolbar-row>
+      
+          <label style="color: azure;margin-left: 1%;"><b>Kanban Board</b></label>
+          <label  (click)="onLogout()" style="color: azure;margin-left: 75%;font-size: large;">Log Out</label>
+          <a href="user-details"><label style="color: azure;margin-left: 80%;font-size: large;">My Profile</label></a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<button (click)="openDialog()" mat-raised-button color="primary" style="margin-top: 50px;">Add Task</button>
+<div class="container">
+  <h2>To do</h2>
+
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="inProgressList"
+    class="list" (cdkDropListDropped)="drop($event)">
+    <div class="list-item" *ngFor="let item of todo" cdkDrag><mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{item.taskTitle}}</mat-card-title>
+          <mat-card-subtitle>{{item.taskId}} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{item.taskDescription}}</p>
+          <p>{{item.taskDeadline}}</p>
+          <p><ng-container [ngSwitch]="item.taskPriority">
+            <ng-container *ngSwitchCase="'Urgent'">
+              <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'High'">
+              <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Low'">
+              <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Normal'">
+              <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+            </ng-container>
+            <ng-container *ngSwitchDefault>Code Default</ng-container>
+          </ng-container></p>
+          <p>{{item.assignee}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a routerLink="../edit-task/{{item.taskId}}"><button mat-icon-button aria-label="Example icon-button with edit icon" color="primary" >
+            <mat-icon>edit</mat-icon>
+          </button></a>
+          <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card></div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>In Progress</h2>
+
+  <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress"
+    [cdkDropListConnectedTo]="[doneList, todoList]" class="list" (cdkDropListDropped)="drop($event)">
+    <div class="list-item" *ngFor="let item of inProgress" cdkDrag><mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{item.taskTitle}}</mat-card-title>
+          <mat-card-subtitle>{{item.taskId}} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{item.taskDescription}}</p>
+          <p>{{item.taskDeadline}}</p>
+          <p><ng-container [ngSwitch]="item.taskPriority">
+            <ng-container *ngSwitchCase="'Urgent'">
+              <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'High'">
+              <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Low'">
+              <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Normal'">
+              <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+            </ng-container>
+            <ng-container *ngSwitchDefault>Code Default</ng-container>
+          </ng-container></p>
+          <p>{{item.assignee}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a routerLink="../edit-task/{{item.taskId}}"><button mat-icon-button aria-label="Example icon-button with edit icon" color="primary" >
+            <mat-icon>edit</mat-icon>
+          </button></a>
+          <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card></div>
+  </div>
+</div>
+<div class="container">
+  <h2>Completed</h2>
+
+  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="archiveList">
+    <div class="list-item" *ngFor="let item of done" cdkDrag><mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{item.taskTitle}}</mat-card-title>
+          <mat-card-subtitle>{{item.taskId}} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{item.taskDescription}}</p>
+          <p>{{item.taskDeadline}}</p>
+          <p><ng-container [ngSwitch]="item.taskPriority">
+            <ng-container *ngSwitchCase="'Urgent'">
+              <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'High'">
+              <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Low'">
+              <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Normal'">
+              <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+            </ng-container>
+            <ng-container *ngSwitchDefault>Code Default</ng-container>
+          </ng-container></p>
+          <p>{{item.assignee}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+         
+          <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card></div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Archive</h2>
+
+  <div cdkDropList #archiveList="cdkDropList" [cdkDropListData]="archive" [cdkDropListConnectedTo]="doneList"
+    class="list" (cdkDropListDropped)="drop($event)">
+    <div class="list-item" *ngFor="let item of archive" ><mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{item.taskTitle}}</mat-card-title>
+          <mat-card-subtitle>{{item.taskId}} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{item.taskDescription}}</p>
+          <p>{{item.taskDeadline}}</p>
+          <p><ng-container [ngSwitch]="item.taskPriority">
+            <ng-container *ngSwitchCase="'Urgent'">
+              <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'High'">
+              <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Low'">
+              <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Normal'">
+              <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+            </ng-container>
+            <ng-container *ngSwitchDefault>Code Default</ng-container>
+          </ng-container></p>
+          <p>{{item.assignee}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- <a routerLink="../edit-task/{{item.taskId}}"><button mat-icon-button aria-label="Example icon-button with edit icon" color="primary" >
+            <mat-icon>edit</mat-icon>
+          </button></a> -->
+          <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card></div>
+  </div>
+</div>
+
+<!-- <div id="dragbody">
+  <div class="container">
+    <h2>To do</h2>
+  
+    
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="inProgressList"
+      class="list" (cdkDropListDropped)="drop($event)">
+        <mat-expansion-panel class="example-card" *ngFor="let item of todo" cdkDrag hideToggle>
+          <mat-expansion-panel-header>
+            <div class="title">
+            <mat-card-title>Title: {{item.taskTitle}}</mat-card-title>
+            <br>
+            <mat-card-subtitle style="font-weight: 1000; font-size: larger;">Id: {{item.taskId}} </mat-card-subtitle>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-card-content>
+            <p>{{item.taskDescription}}</p>
+            <p><img src="../../assets/calendar.png" style="margin-right:15px;">{{item.taskDeadline}}</p>
+            <p><img src="../../assets/priority.png" width="40px" height="40px" style="margin-right:15px ;"><ng-container [ngSwitch]="item.taskPriority">
+              <ng-container *ngSwitchCase="'Urgent'">
+                <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'High'">
+                <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Low'">
+                <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Normal'">
+                <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>Code Default</ng-container>
+            </ng-container></p>
+            <p><img src="../../assets/user.png" style="margin-right:15px;">{{item.assignee}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-icon-button aria-label="Example icon-button with edit icon" color="primary" >
+              <img src="../../assets/pencil.png" height="40px" width="40px" style="margin-right: 20px;">
+            </button>
+            <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+              <img src="../../assets/trash.png">
+            </button>
+          </mat-card-actions>
+        </mat-expansion-panel>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>In Progress</h2>
+  
+    <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress"
+      [cdkDropListConnectedTo]="[doneList, todoList]" class="list" (cdkDropListDropped)="drop($event)">
+      <mat-expansion-panel class="example-card" *ngFor="let item of inProgress" cdkDrag hideToggle>
+          <mat-expansion-panel-header>
+            <div class="title">
+              <mat-card-title>Title: {{item.taskTitle}}</mat-card-title>
+              <br>
+              <mat-card-subtitle  style="font-weight: 1000; font-size: larger;">Id: {{item.taskId}} </mat-card-subtitle>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-card-content>
+            <p>{{item.taskDescription}}</p>
+            <p><img src="../../assets/calendar.png" style="margin-right:15px;">{{item.taskDeadline}}</p>
+            <p><img src="../../assets/priority.png" width="40px" height="40px" style="margin-right:15px ;"><ng-container [ngSwitch]="item.taskPriority">
+              <ng-container *ngSwitchCase="'Urgent'">
+                <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'High'">
+                <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Low'">
+                <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Normal'">
+                <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>Code Default</ng-container>
+            </ng-container></p>
+            <p><img src="../../assets/user.png" style="margin-right:15px;">{{item.assignee}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-icon-button aria-label="Example icon-button with edit icon" color="primary" >
+              <img src="../../assets/pencil.png" height="40px" width="40px" style="margin-right: 20px;">
+            </button>
+            <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+              <img src="../../assets/trash.png">
+            </button>
+          </mat-card-actions>
+        </mat-expansion-panel>
+    </div>
+  </div>
+  <div class="container">
+    <h2>Done</h2>
+  
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event)">
+      <mat-expansion-panel class="example-card" *ngFor="let item of done" hideToggle>
+          <mat-expansion-panel-header>
+            <div class="title">
+              <mat-card-title>Title: {{item.taskTitle}}</mat-card-title>
+              <mat-card-subtitle style="font-weight: 1000; font-size: larger;">Id: {{item.taskId}} </mat-card-subtitle>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-card-content>
+            <p>{{item.taskDescription}}</p>
+            <p><img src="../../assets/calendar.png" style="margin-right:15px;">{{item.taskDeadline}}</p>
+            <p><img src="../../assets/priority.png" width="40px" height="40px" style="margin-right:15px ;"><ng-container [ngSwitch]="item.taskPriority">
+              <ng-container *ngSwitchCase="'Urgent'">
+                <span style="background-color: red;padding: 5px; border-radius: 5%;">Urgent</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'High'">
+                <span style="background-color: rgb(226, 116, 135);padding: 5px; border-radius: 5%;">High</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Low'">
+                <span style="background-color: wheat;padding: 5px; border-radius: 5%;">Low</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Normal'">
+                <span style="background-color: skyblue;padding: 5px; border-radius: 5%;">Normal</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>Code Default</ng-container>
+            </ng-container></p>
+            <p><img src="../../assets/user.png" style="margin-right:15px;">{{item.assignee}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <img src="../../assets/done.png" width="30px" height="30px" style="margin-right: 15px;">
+            <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary" (click)="deleteTask(item.taskId)">
+              <img src="../../assets/trash.png">
+            </button>
+          </mat-card-actions>
+        </mat-expansion-panel>
+    </div>
+  </div>
+  </div> -->
+  <!-- <button (click)="openDialog()" class="addbtn" mat-raised-button color="primary">Add Task</button> -->
+  
