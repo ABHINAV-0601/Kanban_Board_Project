@@ -2,3 +2,29 @@ mat-toolbar {
     background-color: #897622;
     width: 100%
 }
+body{
+    background-image: url("../../assets/img1.jpg");
+    
+    background-size: contain;
+    background-repeat: repeat;
+    padding-bottom: 50%;
+    
+}
+mat-card{
+    
+    background-color: gainsboro;
+    border-radius: 3%;
+    z-index: 0.3;
+    box-shadow: 3px 3px 3px 3px gray;
+    padding: 20px;
+}
+#button{
+    border-radius: 8%;
+    background-color: #897622;
+}
+#span{
+    font-family: cursive;
+}
+p{
+    font-size: medium;
+}

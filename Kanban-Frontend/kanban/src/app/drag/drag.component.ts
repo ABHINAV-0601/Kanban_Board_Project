@@ -70,5 +70,7 @@ export class DragComponent implements OnInit {
     localStorage.removeItem("jwt");
     this.route.navigate(['login'])
   }
-
+  onClick(){
+    this.route.navigateByUrl("allusers")
+  }
 }

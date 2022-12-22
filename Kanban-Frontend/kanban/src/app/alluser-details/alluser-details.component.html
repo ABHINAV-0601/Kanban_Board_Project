@@ -2,33 +2,36 @@
     <mat-toolbar-row>
 
         <label style="color: azure;margin-left: 1%;"><b>Kanban Board</b></label>
-        <label (click)="onDashboard()" style="color: azure;margin-left: 70%;font-size: large;">Dashboard</label>
-        <label (click)="onLogout()" style="color: azure;margin-left: 5%;font-size: large;">Log Out</label>
+        <label (click)="onDashboard()" style="color: azure;margin-left: 75%;font-size: medium;">Dashboard</label>
+        <label (click)="onLogout()" style="color: azure;margin-left: 3%;font-size: medium;">Log Out</label>
         <!-- <label (click)="onClick()" style="color: azure;margin-left: 5%;font-size: large;">All users</label> -->
     </mat-toolbar-row>
 </mat-toolbar>
-<div class="container">
-    <div *ngFor="let user of userData">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    <p>{{user.fullName}}</p>
-                </mat-card-title>
-                <mat-card-subtitle>
-                    <p>{{user.emailId}}</p>
-                </mat-card-subtitle>
 
-            </mat-card-header>
-            <mat-card-content>
-                <p>{{user.phoneNumber}}</p>
-                <p>{{user.address}}</p>
-                <p>{{user.department}}</p>
-                <p>{{user.position}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="primary" (click)="onClick(user.emailId)">Assign Task</button>
-            </mat-card-actions>
-        </mat-card>
+<body>
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let user of userData" class="col-lg-4 mt-3">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h1><span id="span"><b>Full Name:</b> {{user.fullName}}</span></h1>
+                        </mat-card-title>
+
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p><span id="span"><b>Email Id:</b> {{user.emailId}}</span> </p>
+                        <p><span id="span"><b>Phone Number:</b> {{user.phoneNumber}}</span></p>
+                        <p><span id="span"><b>Address:</b> {{user.address}}</span></p>
+                        <p><span id="span"><b>Department:</b> {{user.department}}</span></p>
+                        <p><span id="span"><b>Position:</b> {{user.position}}</span></p>
+                    </mat-card-content>
+                    <br>
+                    <mat-card-actions>
+                        <button mat-raised-button (click)="onClick(user.emailId)" id="button">Assign Task</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
     </div>
-
-</div>
+</body>

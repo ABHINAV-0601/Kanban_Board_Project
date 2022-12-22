@@ -1,5 +1,5 @@
 #card {
-    background: white;
+    background-color: gainsboro;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -18,16 +18,19 @@ h3 {
 
 #container {
 
-    margin: auto;
     width: 50%;
     box-shadow: grey 4px 4px 4px 4px;
-    margin-top: 50px;
+    
     padding: 50px;
+    position: absolute;
+    top: 50px;
+    left: 350px;
+    background-color: gainsboro;
+    box-shadow: 3px 3px 3px 3px gray;
+    border-radius: 3%;
 }
 
-.field {
-    margin-right: 50px;
-}
+
 
 #submit {
     margin: auto;
@@ -47,4 +50,10 @@ h3 {
 
 button {
     margin-left: 40px;
+}
+body{
+    background-image: url("../../assets/img1.jpg");
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
 }
