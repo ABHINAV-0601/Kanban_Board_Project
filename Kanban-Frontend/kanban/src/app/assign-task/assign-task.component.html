@@ -20,7 +20,7 @@
                         <mat-label>Assignee</mat-label>
                         <input matInput placeholder="Assignee" formControlName="assignee" id="assignee">
                         <mat-error *ngIf="assignee?.hasError('required')">
-                            Assign is Someone.
+                           This field can't be blank.
                         </mat-error>
                         <mat-error *ngIf="assignee?.hasError('pattern')">
                             Assignee name should start with capital.

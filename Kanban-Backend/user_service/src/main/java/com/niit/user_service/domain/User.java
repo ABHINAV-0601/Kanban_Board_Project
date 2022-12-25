@@ -19,6 +19,7 @@ public class User {
     private String address;
     private String department;
     private String position;
+//    private List<Project> projectList;
     private List<Task> taskList;
     public User() {
     }
@@ -31,14 +32,6 @@ public class User {
         this.address = address;
         this.department = department;
         this.position = position;
-        this.taskList = taskList;
-    }
-
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
@@ -97,6 +90,22 @@ public class User {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
+    }
+//    public List<Project> getProjectList() {
+//        return projectList;
+//    }
+//
+//    public void setProjectList(List<Project> projectList) {
+//        this.projectList = projectList;
+//    }
+
 
     @Override
     public String toString() {

@@ -28,6 +28,10 @@ export class UpdateUserDetailsComponent implements OnInit{
         console.log(response)
         alert("User Updated Successfully")
         this.route.navigateByUrl('user-details')
+      },(err) => {
+        console.log(err)
+        
+        alert("invalid entry!! Please check the data and enter again")
       }
     )
   }

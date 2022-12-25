@@ -9,33 +9,38 @@
         <br>
 
         <mat-card-content>
-            <form id="update-form">
-                <mat-form-field class="input-field" appearance="outline">
+            <form id="update-form" #assignForm="ngForm">
+                <mat-form-field class="input-field" appearance="outline" >
                     <mat-label>Full Name</mat-label>
-                    <input matInput [(ngModel)]="user.fullName" name="fullName" type="text">
+                    <input matInput [(ngModel)]="user.fullName" name="fullName" type="text" required>
+                    
                 </mat-form-field>
                 <br>
                 <mat-form-field class="input-field" appearance="outline">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput [(ngModel)]="user.phoneNumber" name="phoneNumber" type="text">
+                    <input matInput [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel" type="tel" required pattern="^(6|7|8|9)\d{9}$">
+                    <mat-error *ngIf="phoneNumber.hasError('pattern')">
+                        Number should be start from 6,7, 8 or 9 and of 10 digits
+                    </mat-error>
+                    
                 </mat-form-field>
                 <br>
                 <mat-form-field class="input-field" appearance="outline">
                     <mat-label>Address</mat-label>
-                    <input matInput [(ngModel)]="user.address" name="address" type="text">
+                    <input matInput [(ngModel)]="user.address" name="address" type="text" required>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="input-field" appearance="outline">
                     <mat-label>Department</mat-label>
-                    <input matInput [(ngModel)]="user.department" name="department" type="text">
+                    <input matInput [(ngModel)]="user.department" name="department" type="text" required>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="input-field" appearance="outline">
                     <mat-label>Position</mat-label>
-                    <input matInput [(ngModel)]="user.position" name="position" type="text">
+                    <input matInput [(ngModel)]="user.position" name="position" type="text" required>
                 </mat-form-field>
                 <mat-card-actions>
-                    <button mat-raised-button type="submit" color="primary" (click)="onSubmit()"
+                    <button mat-raised-button type="submit" color="primary" (click)="onSubmit()" [disabled]="assignForm.invalid"
                         style="margin-left: 250px;">Submit</button>
                 </mat-card-actions>
             </form>
