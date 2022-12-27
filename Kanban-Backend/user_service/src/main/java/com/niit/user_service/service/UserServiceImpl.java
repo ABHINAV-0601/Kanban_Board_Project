@@ -4,6 +4,7 @@ import com.niit.task_service.domain.Task;
 import com.niit.task_service.exception.TaskAlreadyExistException;
 import com.niit.task_service.exception.UserNotFoundException;
 import com.niit.user_service.domain.User;
+import com.niit.user_service.exception.MaximumTasksReachedException;
 import com.niit.user_service.exception.UserAlreadyExistsException;
 import com.niit.user_service.proxy.UserProxy;
 import com.niit.user_service.repository.UserRepository;
@@ -79,30 +80,34 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User addTaskForUser(String emailId, Task task) throws UserNotFoundException, TaskAlreadyExistException {
+    public User addTaskForUser(String emailId, Task task) throws Exception {
         if(userRepository.findById(emailId).isEmpty()){
             throw new UserNotFoundException();
         }
         User user = userRepository.findById(emailId).get();
         List<Task> taskList = user.getTaskList();
-        Iterator<Task> taskIterator = taskList.iterator();
-        while(taskIterator.hasNext()){
-            if(taskIterator.next().getTaskId().equalsIgnoreCase(task.getTaskId())){
-                throw new TaskAlreadyExistException();
+        if(taskList.size()<=3){
+            System.out.println("This is inside if == "+taskList.size());
+            Iterator<Task> taskIterator = taskList.iterator();
+            while(taskIterator.hasNext()){
+                if(taskIterator.next().getTaskId().equalsIgnoreCase(task.getTaskId())){
+                    throw new TaskAlreadyExistException();
+                }
             }
+            if(user.getTaskList() == null){
+                user.setTaskList(Arrays.asList(task));
+            }
+            else{
+                taskList.add(task);
+                user.setTaskList(taskList);
+            }
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(emailId);
+            msg.setSubject("Task Assigned");
+            msg.setText("A task has been assigned to you. Please login to know further details!!");
+            javaMailSender.send(msg);
+            return userRepository.save(user);
         }
-        if(user.getTaskList() == null){
-            user.setTaskList(Arrays.asList(task));
-        }
-        else{
-            taskList.add(task);
-            user.setTaskList(taskList);
-        }
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(emailId);
-        msg.setSubject("Task Assigned");
-        msg.setText("A task has been assigned to you. Please login to know further details!!");
-        javaMailSender.send(msg);
-        return userRepository.save(user);
+       throw new MaximumTasksReachedException();
     }
 }

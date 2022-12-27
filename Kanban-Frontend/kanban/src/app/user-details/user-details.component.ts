@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceService } from '../services/user-service.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -25,6 +25,11 @@ export class UserDetailsComponent implements OnInit{
   onLogout(){
     localStorage.removeItem("emailId");
     localStorage.removeItem("jwt");
+    Swal.fire(
+      'Log Out!',
+      'User logged out Successfully!!',
+      'success'
+    )
     this.route.navigate(['login'])
   }
 

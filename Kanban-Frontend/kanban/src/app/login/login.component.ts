@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserServiceService } from '../services/user-service.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,14 +41,24 @@ export class LoginComponent implements OnInit {
         console.log(this.email);
         localStorage.setItem('emailId', this.email);
         localStorage.setItem('jwt', this.data.token);
-        alert('Login success');
-        
+        // alert('Login success');
+        Swal.fire(
+          'Congrats!',
+          'Login Successfull!!',
+          'success'
+        )
 
          this.route.navigateByUrl('/dashboard');
       },(err) => {
         console.log(err)
         
-        alert("invalid credentials")
+        // alert("invalid credentials")
+        Swal.fire({
+          title: 'Error!',
+          text: 'Invalid Credentials, Please try again!!',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
       }
     )
     

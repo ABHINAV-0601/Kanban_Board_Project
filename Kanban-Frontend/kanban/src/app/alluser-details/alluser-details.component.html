@@ -13,7 +13,7 @@
         <div class="row">
             <div *ngFor="let user of userData" class="col-lg-4 mt-3">
                 <mat-card class="example-card">
-                    <mat-card-header>
+                    <!-- <mat-card-header>
                         <mat-card-title>
                             <h1><span id="span"><b>Full Name:</b> {{user.fullName}}</span></h1>
                         </mat-card-title>
@@ -29,6 +29,17 @@
                     <br>
                     <mat-card-actions>
                         <button mat-raised-button (click)="onClick(user.emailId)" id="button">Assign Task</button>
+                    </mat-card-actions> -->
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h3><span id="span"><b>Full Name:</b> {{user.fullName}}<button id="button1" mat-icon-button (click)="openUserDetails(user)"><mat-icon>info</mat-icon></button></span></h3>
+                        </mat-card-title>
+
+                    </mat-card-header>
+
+                    <mat-card-actions>
+                        <button mat-raised-button (click)="onClick(user.emailId)" id="button">Assign Task</button>
+                        
                     </mat-card-actions>
                 </mat-card>
             </div>

@@ -17,5 +17,5 @@ public interface UserService {
 
     User getSpecificUser(String emailId) throws UserNotFoundException;
 
-    User addTaskForUser(String emailId, Task task) throws UserNotFoundException, TaskAlreadyExistException;
+    User addTaskForUser(String emailId, Task task) throws Exception;
 }

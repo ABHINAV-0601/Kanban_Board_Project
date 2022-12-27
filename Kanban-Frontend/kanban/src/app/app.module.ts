@@ -25,7 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { NgToastModule } from 'ng-angular-popup'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -42,6 +42,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { AlluserDetailsComponent } from './alluser-details/alluser-details.component';
 import { UpdateUserDetailsComponent } from './update-user-details/update-user-details.component';
 import { AssignTaskComponent } from './assign-task/assign-task.component';
+import { DisplayTaskComponent } from './display-task/display-task.component';
+import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +60,9 @@ import { AssignTaskComponent } from './assign-task/assign-task.component';
     UserDetailsComponent,
     AlluserDetailsComponent,
     UpdateUserDetailsComponent,
-    AssignTaskComponent
+    AssignTaskComponent,
+    DisplayTaskComponent,
+    UserDetailsDialogComponent
 
   ],
   imports: [
@@ -86,7 +90,8 @@ import { AssignTaskComponent } from './assign-task/assign-task.component';
     MatSidenavModule,
     MatListModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

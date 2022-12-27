@@ -19,26 +19,31 @@ public class TaskServiceImplementation implements TaskService{
     @Autowired
     private TaskRepository taskRepository;
     @Override
-    public User addTaskForUser(String emailId, Task task) throws UserNotFoundException, TaskAlreadyExistException {
+    public User addTaskForUser(String emailId, Task task) throws Exception {
         if(taskRepository.findById(emailId).isEmpty()){
             throw new UserNotFoundException();
         }
         User user = taskRepository.findById(emailId).get();
         List<Task> taskList = user.getTaskList();
-        Iterator<Task> taskIterator = taskList.iterator();
-        while(taskIterator.hasNext()){
-            if(taskIterator.next().getTaskId().equalsIgnoreCase(task.getTaskId())){
-                throw new TaskAlreadyExistException();
+
+        if(taskList.size()<=3){
+            System.out.println("This is inside if  " +taskList.size());
+            Iterator<Task> taskIterator = taskList.iterator();
+            while(taskIterator.hasNext()){
+                if(taskIterator.next().getTaskId().equalsIgnoreCase(task.getTaskId())){
+                    throw new TaskAlreadyExistException();
+                }
             }
+            if(user.getTaskList() == null){
+                user.setTaskList(Arrays.asList(task));
+            }
+            else{
+                taskList.add(task);
+                user.setTaskList(taskList);
+            }
+            return taskRepository.save(user);
         }
-        if(user.getTaskList() == null){
-            user.setTaskList(Arrays.asList(task));
-        }
-        else{
-            taskList.add(task);
-            user.setTaskList(taskList);
-        }
-        return taskRepository.save(user);
+        throw new Exception();
     }
 
     @Override

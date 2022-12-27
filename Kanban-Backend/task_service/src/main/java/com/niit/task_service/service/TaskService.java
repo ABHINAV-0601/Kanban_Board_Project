@@ -8,7 +8,7 @@ import com.niit.user_service.domain.User;
 import java.util.List;
 
 public interface TaskService {
-    User addTaskForUser(String emailId,Task task) throws UserNotFoundException,TaskAlreadyExistException;
+    User addTaskForUser(String emailId,Task task) throws Exception;
     User deleteTaskForUser(String emailId,String taskId) throws UserNotFoundException,TaskNotFoundException;
     List<Task> getAllTasksForUser(String emailId) throws UserNotFoundException;
     User updateTaskForUser(String emailId,Task task) throws UserNotFoundException;

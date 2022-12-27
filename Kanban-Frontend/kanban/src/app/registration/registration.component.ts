@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserServiceService } from '../services/user-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registration',
@@ -67,11 +68,15 @@ export class RegistrationComponent implements OnInit{
         this.data = response;
         console.log(response);
  
-        this._snackBar.open('Congrats, you registered successfully!!', 'Success', {
-          duration: 5000,
-          panelClass: ['mat-toolbar', 'mat-primary']
-        })
-
+        // this._snackBar.open('Congrats, you registered successfully!!', 'Success', {
+        //   duration: 5000,
+        //   panelClass: ['mat-toolbar', 'mat-primary']
+        // })
+        Swal.fire(
+          'Registration!',
+          'Registered Successfully!!',
+          'success'
+        )
        this.route.navigateByUrl("/login")
 
       }
