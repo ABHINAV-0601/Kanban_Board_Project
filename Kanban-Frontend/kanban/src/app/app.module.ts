@@ -44,6 +44,9 @@ import { UpdateUserDetailsComponent } from './update-user-details/update-user-de
 import { AssignTaskComponent } from './assign-task/assign-task.component';
 import { DisplayTaskComponent } from './display-task/display-task.component';
 import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +65,8 @@ import { UserDetailsDialogComponent } from './user-details-dialog/user-details-d
     UpdateUserDetailsComponent,
     AssignTaskComponent,
     DisplayTaskComponent,
-    UserDetailsDialogComponent
+    UserDetailsDialogComponent,
+    ContactUsComponent
 
   ],
   imports: [
@@ -91,7 +95,9 @@ import { UserDetailsDialogComponent } from './user-details-dialog/user-details-d
     MatListModule,
     MatSelectModule,
     MatDialogModule,
-    NgToastModule
+    NgToastModule,
+    NgxPaginationModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

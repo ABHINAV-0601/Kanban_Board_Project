@@ -55,20 +55,90 @@ public class TaskController {
         }
         return responseEntity;
     }
-
+    @DeleteMapping("/task/deleteprogress/{emailId}/{taskId}")
+    public ResponseEntity<?> deleteProgressTask(@PathVariable String emailId,@PathVariable String taskId) throws TaskNotFoundException, UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.deleteProgressTask(emailId,taskId),HttpStatus.OK);
+        }catch (TaskNotFoundException exception) {
+            throw new TaskNotFoundException();
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @DeleteMapping("/task/deletecompleted/{emailId}/{taskId}")
+    public ResponseEntity<?> deleteCompletedTask(@PathVariable String emailId,@PathVariable String taskId) throws TaskNotFoundException, UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.deleteCompletedTask(emailId,taskId),HttpStatus.OK);
+        }catch (TaskNotFoundException exception) {
+            throw new TaskNotFoundException();
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @DeleteMapping("/task/deletearchived/{emailId}/{taskId}")
+    public ResponseEntity<?> deleteArchivedTask(@PathVariable String emailId,@PathVariable String taskId) throws TaskNotFoundException, UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.deleteArchivedTask(emailId,taskId),HttpStatus.OK);
+        }catch (TaskNotFoundException exception) {
+            throw new TaskNotFoundException();
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
     @GetMapping("task/get/{emailId}")
     public ResponseEntity<?> getAllTheTasks(@PathVariable String emailId) throws UserNotFoundException {
 
         try {
             responseEntity = new ResponseEntity(taskService.getAllTasksForUser(emailId),HttpStatus.OK);
-        }catch(UserNotFoundException e){
+        }catch(UserNotFoundException exception){
             throw new UserNotFoundException();
         } catch (Exception exception) {
             responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
         }
         return responseEntity;
     }
-
+    @GetMapping("task/getprogress/{emailId}")
+    public ResponseEntity<?> getAllProgressTasks(@PathVariable String emailId) throws UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.getAllInProgressTasksForUser(emailId),HttpStatus.OK);
+        }catch(UserNotFoundException exception){
+            throw new UserNotFoundException();
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @GetMapping("task/getcompleted/{emailId}")
+    public ResponseEntity<?> getAllCompletedTasks(@PathVariable String emailId) throws UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.getAllCompletedTasksForUser(emailId),HttpStatus.OK);
+        }catch(UserNotFoundException exception){
+            throw new UserNotFoundException();
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @GetMapping("task/getarchived/{emailId}")
+    public ResponseEntity<?> getAllArchievedTasks(@PathVariable String emailId) throws UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.getAllArchievedTasksForUser(emailId),HttpStatus.OK);
+        }catch(UserNotFoundException exception){
+            throw new UserNotFoundException();
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
     @PutMapping("task/update/{emailId}")
     public ResponseEntity<?> updationOfTask(@PathVariable String emailId,@RequestBody Task task) throws TaskNotFoundException, UserNotFoundException {
 
@@ -88,6 +158,58 @@ public class TaskController {
             responseEntity = new ResponseEntity<>(taskService.getTaskOfUser(emailId,taskId),HttpStatus.OK);
         }catch (UserNotFoundException exception){
             throw new UserNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @PostMapping("movetask/{emailId}/{taskId}")
+    public ResponseEntity<?> moveTask(@PathVariable String emailId, @PathVariable String taskId) throws UserNotFoundException, TaskNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.moveTask(emailId,taskId),HttpStatus.OK);
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (TaskNotFoundException exception){
+            throw new TaskNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @PostMapping("movetasktodo/{emailId}/{taskId}")
+    public ResponseEntity<?> moveTasktodo(@PathVariable String emailId,@PathVariable String taskId) throws UserNotFoundException, TaskNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.moveTaskfrominProgressToToDO(emailId,taskId),HttpStatus.OK);
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (TaskNotFoundException exception){
+            throw new TaskNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @PostMapping("movetaskcompleted/{emailId}/{taskId}")
+    public ResponseEntity<?> moveTaskCompleted(@PathVariable String emailId,@PathVariable String taskId) throws UserNotFoundException, TaskNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.moveTaskFromInProgressToCompleted(emailId,taskId),HttpStatus.OK);
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (TaskNotFoundException exception){
+            throw new TaskNotFoundException();
+        }catch (Exception exception){
+            responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+    @PostMapping("movetaskarchive/{emailId}/{taskId}")
+    public ResponseEntity<?> moveTaskArchive(@PathVariable String emailId,@PathVariable String taskId) throws UserNotFoundException, TaskNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(taskService.moveTaskFromCompletedToArchive(emailId,taskId),HttpStatus.OK);
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch (TaskNotFoundException exception){
+            throw new TaskNotFoundException();
         }catch (Exception exception){
             responseEntity = new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
         }

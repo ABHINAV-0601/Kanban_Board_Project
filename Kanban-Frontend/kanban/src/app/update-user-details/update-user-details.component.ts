@@ -48,7 +48,7 @@ export class UpdateUserDetailsComponent implements OnInit {
           response => {
             console.log(response)
             // alert("User Updated Successfully")
-
+            location.reload()
           }, (err) => {
             console.log(err)
 
@@ -61,6 +61,7 @@ export class UpdateUserDetailsComponent implements OnInit {
           'success'
         )
         this.route.navigateByUrl('user-details')
+        
       }
 
     }

@@ -1,4 +1,5 @@
-<mat-toolbar class="toolbar">
+
+<mat-toolbar class="toolbar" style="overflow: hidden;">
     <mat-toolbar-row>
 
         <label style="color: azure;margin-left: 1%;"><b>Kanban Board</b></label>
@@ -8,41 +9,30 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<body>
+<body style="overflow: hidden;">
+    
+
     <div class="container">
         <div class="row">
-            <div *ngFor="let user of userData" class="col-lg-4 mt-3">
+            <div *ngFor="let user of userData | paginate: 
+            { itemsPerPage: 4, currentPage: page }" class="col-lg-4 mt-3">
                 <mat-card class="example-card">
-                    <!-- <mat-card-header>
-                        <mat-card-title>
-                            <h1><span id="span"><b>Full Name:</b> {{user.fullName}}</span></h1>
-                        </mat-card-title>
-
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p><span id="span"><b>Email Id:</b> {{user.emailId}}</span> </p>
-                        <p><span id="span"><b>Phone Number:</b> {{user.phoneNumber}}</span></p>
-                        <p><span id="span"><b>Address:</b> {{user.address}}</span></p>
-                        <p><span id="span"><b>Department:</b> {{user.department}}</span></p>
-                        <p><span id="span"><b>Position:</b> {{user.position}}</span></p>
-                    </mat-card-content>
-                    <br>
-                    <mat-card-actions>
-                        <button mat-raised-button (click)="onClick(user.emailId)" id="button">Assign Task</button>
-                    </mat-card-actions> -->
                     <mat-card-header>
                         <mat-card-title>
-                            <h3><span id="span"><b>Full Name:</b> {{user.fullName}}<button id="button1" mat-icon-button (click)="openUserDetails(user)"><mat-icon>info</mat-icon></button></span></h3>
+                            <h3><span id="span"><b>Full Name:</b> {{user.fullName}}<button mat-icon-button id="infobtn"
+                                        (click)="openUserDetails(user)"><mat-icon>info</mat-icon></button></span></h3>
                         </mat-card-title>
 
                     </mat-card-header>
 
                     <mat-card-actions>
                         <button mat-raised-button (click)="onClick(user.emailId)" id="button">Assign Task</button>
-                        
+
                     </mat-card-actions>
                 </mat-card>
             </div>
         </div>
     </div>
+    <pagination-controls (pageChange)="page = $event" class="pgctrl">
+    </pagination-controls>
 </body>

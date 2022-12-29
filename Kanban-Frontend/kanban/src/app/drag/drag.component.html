@@ -18,7 +18,8 @@
 
 
       <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="inProgressList"
-        class="list" (cdkDropListDropped)="drop($event)">
+        class="list" (cdkDropListDropped)="drop($event) "
+        (cdkDropListDropped)="onToDo($event.container.data[0].taskId)">
         <mat-card class="example-card" *ngFor="let item of todo" cdkDrag hideToggle>
 
           <div class="title">
@@ -28,14 +29,15 @@
           <mat-card-actions>
             <!-- <span style="position: relative; top: 5px;">More options...</span> -->
             <a routerLink="../edit-task/{{item.taskId}}"><button mat-icon-button
-                aria-label="Example icon-button with edit icon" style="margin-left: 120px;">
+                aria-label="Example icon-button with edit icon" style="margin-left: 80px;">
                 <mat-icon class="card-icon">edit</mat-icon>
               </button></a>
             <button mat-icon-button aria-label="Example icon-button with delete icon" (click)="deleteTask(item.taskId)">
               <mat-icon class="card-icon">delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon
-                class="card-icon">preview</mat-icon></button>
+            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon class="card-icon">info</mat-icon></button>
+            <button mat-icon-button (click)="onInProgress(item.taskId)"><mat-icon
+                class="card-icon">arrow_forward</mat-icon></button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -46,7 +48,8 @@
       <h3>In Progress</h3>
 
       <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress"
-        [cdkDropListConnectedTo]="[doneList, todoList]" class="list" (cdkDropListDropped)="drop($event)">
+        [cdkDropListConnectedTo]="[doneList, todoList]" class="list" (cdkDropListDropped)="drop($event)"
+        (cdkDropListDropped)="onInProgress($event.container.data[0].taskId)">
         <mat-card class="example-card" *ngFor="let item of inProgress" cdkDrag hideToggle>
           <div class="title">
             <mat-card-title><b>Title: </b>{{item.taskTitle}}</mat-card-title>
@@ -54,39 +57,43 @@
           </div>
 
           <mat-card-actions>
-            <a routerLink="../edit-task/{{item.taskId}}"><button mat-icon-button
-                aria-label="Example icon-button with edit icon" style="margin-left: 120px;">
-                <mat-icon class="card-icon">edit</mat-icon>
+            <a><button mat-icon-button aria-label="Example icon-button with edit icon" style="margin-left: 80px;"
+                (click)="onToDo(item.taskId)">
+                <mat-icon class="card-icon">arrow_back</mat-icon>
               </button></a>
-            <button mat-icon-button aria-label="Example icon-button with delete icon" (click)="deleteTask(item.taskId)">
+            <button mat-icon-button aria-label="Example icon-button with delete icon"
+              (click)="deleteProgressTask(item.taskId)">
               <mat-icon class="card-icon">delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon
-                class="card-icon">preview</mat-icon></button>
+            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon class="card-icon">info</mat-icon></button>
+            <button mat-icon-button (click)="onCompleted(item.taskId)"><mat-icon
+                class="card-icon">arrow_forward</mat-icon></button>
           </mat-card-actions>
         </mat-card>
       </div>
     </div>
+
     <div class="container">
       <h3>Completed</h3>
 
-      <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event)" (cdkDropListDropped)="submit()"
-        [cdkDropListConnectedTo]="[archiveList]">
+      <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event)"
+        (cdkDropListDropped)="submit()" [cdkDropListConnectedTo]="[archiveList]"
+        (cdkDropListDropped)="onCompleted($event.container.data[0].taskId)">
         <mat-card class="example-card" *ngFor="let item of done" hideToggle cdkDrag>
           <div class="title">
             <mat-card-title><b>Title: </b>{{item.taskTitle}}</mat-card-title>
             <mat-card-subtitle><b>Id: </b>{{item.taskId}} </mat-card-subtitle>
           </div>
           <mat-card-actions>
-            <button mat-icon-button aria-label="Example icon-button with edit icon" style="margin-left: 120px;">
-              <mat-icon class="card-icon">done</mat-icon>
+            <button mat-icon-button aria-label="Example icon-button with edit icon" style="margin-left: 120px;"
+              (click)="onArchive(item.taskId)">
+              <mat-icon class="card-icon">arrow_forward</mat-icon>
             </button>
             <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary"
-              (click)="deleteTask(item.taskId)">
+              (click)="deleteCompletedTask(item.taskId)">
               <mat-icon class="card-icon">delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon
-                class="card-icon">preview</mat-icon></button>
+            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon class="card-icon">info</mat-icon></button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -95,7 +102,7 @@
       <h3>Archive</h3>
 
       <div cdkDropList #archiveList="cdkDropList" [cdkDropListData]="archive" [cdkDropListConnectedTo]="[doneList]"
-        class="list" (cdkDropListDropped)="drop($event)">
+        class="list" (cdkDropListDropped)="drop($event)" (cdkDropListDropped)="onArchive($event.container.data[0].taskId)">
         <mat-card class="example-card" *ngFor="let item of archive" hideToggle>
           <div class="title">
             <mat-card-title><b>Title: </b>{{item.taskTitle}}</mat-card-title>
@@ -107,11 +114,10 @@
               <mat-icon class="card-icon">archive</mat-icon>
             </button>
             <button mat-icon-button aria-label="Example icon-button with delete icon" color="primary"
-              (click)="deleteTask(item.taskId)">
+              (click)="deleteArchivedTask(item.taskId)">
               <mat-icon class="card-icon">delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon
-                class="card-icon">preview</mat-icon></button>
+            <button mat-icon-button (click)="openTaskDetails(item)"><mat-icon class="card-icon">info</mat-icon></button>
           </mat-card-actions>
         </mat-card>
       </div>

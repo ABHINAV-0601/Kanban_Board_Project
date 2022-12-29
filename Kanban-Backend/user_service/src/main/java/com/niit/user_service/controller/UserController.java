@@ -26,6 +26,9 @@ public class UserController {
     public ResponseEntity<?> addUser(@RequestBody User user) throws UserAlreadyExistsException {
         try{
             user.setTaskList(new ArrayList<>());
+            user.setTaskList1(new ArrayList<>());
+            user.setCompleted(new ArrayList<>());
+            user.setArchive(new ArrayList<>());
 //            List<String> fixedSizeList = Arrays.asList(new String[100]);
             responseEntity = new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
         }catch (UserAlreadyExistsException exception){

@@ -5,6 +5,7 @@ import { AssignTaskComponent } from '../assign-task/assign-task.component';
 import { UserServiceService } from '../services/user-service.service';
 import Swal from 'sweetalert2';
 import { UserDetailsDialogComponent } from '../user-details-dialog/user-details-dialog.component';
+
 @Component({
   selector: 'app-alluser-details',
   templateUrl: './alluser-details.component.html',
@@ -15,7 +16,8 @@ export class AlluserDetailsComponent implements OnInit{
   constructor(private userService:UserServiceService,private route:Router,private dialog:MatDialog){}
 
   userData:any
-
+  page:any;
+  
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(
       response => {

@@ -21,10 +21,13 @@ public class User {
     private String position;
 //    private List<Project> projectList;
     private List<Task> taskList;
+    private List<Task> taskList1;
+    private List<Task> completed;
+    private List<Task> archive;
     public User() {
     }
 
-    public User(String fullName, String emailId, String password, long phoneNumber, String address, String department, String position, List<Task> taskList) {
+    public User(String fullName, String emailId, String password, long phoneNumber, String address, String department, String position, List<Task> taskList, List<Task> taskList1, List<Task> completed, List<Task> archive) {
         this.fullName = fullName;
         this.emailId = emailId;
         this.password = password;
@@ -33,6 +36,9 @@ public class User {
         this.department = department;
         this.position = position;
         this.taskList = taskList;
+        this.taskList1 = taskList1;
+        this.completed = completed;
+        this.archive = archive;
     }
 
     public String getFullName() {
@@ -98,14 +104,30 @@ public class User {
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
-//    public List<Project> getProjectList() {
-//        return projectList;
-//    }
-//
-//    public void setProjectList(List<Project> projectList) {
-//        this.projectList = projectList;
-//    }
 
+    public List<Task> getTaskList1() {
+        return taskList1;
+    }
+
+    public void setTaskList1(List<Task> taskList1) {
+        this.taskList1 = taskList1;
+    }
+
+    public List<Task> getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(List<Task> completed) {
+        this.completed = completed;
+    }
+
+    public List<Task> getArchive() {
+        return archive;
+    }
+
+    public void setArchive(List<Task> archive) {
+        this.archive = archive;
+    }
 
     @Override
     public String toString() {
@@ -118,6 +140,9 @@ public class User {
                 ", department='" + department + '\'' +
                 ", position='" + position + '\'' +
                 ", taskList=" + taskList +
+                ", taskList1=" + taskList1 +
+                ", completed=" + completed +
+                ", archive=" + archive +
                 '}';
     }
 }

@@ -19,9 +19,12 @@ export class UserDetailsComponent implements OnInit{
       data => {
         console.log(data)
         this.userData = data
+       
       }
     )
+    
   }
+  
   onLogout(){
     localStorage.removeItem("emailId");
     localStorage.removeItem("jwt");
@@ -31,6 +34,10 @@ export class UserDetailsComponent implements OnInit{
       'success'
     )
     this.route.navigate(['login'])
+  }
+
+  onRefresh(){
+    location.reload();
   }
 
   onClick(){

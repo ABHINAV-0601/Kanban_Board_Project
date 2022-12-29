@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService{
         }
         User user = userRepository.findById(emailId).get();
         List<Task> taskList = user.getTaskList();
-        if(taskList.size()<=3){
+        if(taskList.size() < 4){
             System.out.println("This is inside if == "+taskList.size());
             Iterator<Task> taskIterator = taskList.iterator();
             while(taskIterator.hasNext()){

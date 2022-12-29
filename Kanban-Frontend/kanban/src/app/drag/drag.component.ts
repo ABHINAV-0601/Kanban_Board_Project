@@ -20,17 +20,20 @@ export class DragComponent implements OnInit {
   constructor(private dialog: MatDialog, private taskService: TaskServiceService, private route: Router) { }
   ngOnInit(): void {
     this.getAllTasks();
+    this.getAllProgressTasks();
+    this.getAllArchivedTasks();
+    this.getAllCompletedTasks();
   }
 
   todo: any
 
-  done: Task[] = [];
+  done:any;
 
-  inProgress: Task[] = [];
+  inProgress: any;
 
-  archive: Task[] = [];
+  archive:any;
 
-  drop(event: CdkDragDrop<Task[]>): void {
+  drop(event: CdkDragDrop<any>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -39,6 +42,11 @@ export class DragComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
+    // console.log(event.previousIndex)
+    // console.log(event.currentIndex)
+    // console.log(event.previousContainer.data)
+    // console.log(event.container.data[0].taskId)
+    
   }
 
   getAllTasks() {
@@ -49,17 +57,35 @@ export class DragComponent implements OnInit {
       }
     )
   }
+  
+  getAllProgressTasks(){
+    this.taskService.getAllProgressTasks().subscribe(
+      response => {
+        console.log(response)
+        this.inProgress = response
+      }
+    )
+  }
+  
+  getAllCompletedTasks(){
+    this.taskService.getAllCompletedTasks().subscribe(
+      response => {
+        console.log(response)
+        this.done = response
+      }
+    )
+  }
+
+  getAllArchivedTasks(){
+    this.taskService.getAllArchievedTasks().subscribe(
+      response => {
+        console.log(response)
+        this.archive = response
+      }
+    )
+  }
+
   deleteTask(taskId: any) {
-    // if(confirm("Are you sure you want to delete?")){
-    // this.taskService.deleteTask(taskId).subscribe(
-    //   response => {
-    //     console.log(response)
-    //     alert('Task Deleted Successfully!!');
-    //     this.getAllTasks();
-    //     location.reload();
-    //   }
-    // )
-    // }
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -90,6 +116,96 @@ export class DragComponent implements OnInit {
     
   }
 
+  deleteProgressTask(taskId:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.taskService.deleteProgressTask(taskId).subscribe(
+            response=>{
+              console.log(response)
+              // alert('Task Deleted Successfully!!');
+              this.getAllProgressTasks();
+              
+            }
+          )
+  
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        // location.reload();
+      }
+    })
+  }
+
+  deleteCompletedTask(taskId:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.taskService.deleteCompletedTask(taskId).subscribe(
+            response=>{
+              console.log(response)
+              // alert('Task Deleted Successfully!!');
+              this.getAllCompletedTasks();
+              
+            }
+          )
+  
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        // location.reload();
+      }
+    })
+  }
+
+  deleteArchivedTask(taskId:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.taskService.deleteArchivedTasks(taskId).subscribe(
+            response=>{
+              console.log(response)
+              // alert('Task Deleted Successfully!!');
+              this.getAllArchivedTasks();
+              
+            }
+          )
+  
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        // location.reload();
+      }
+    })
+  }
+
   openDialog(): void {
     this.dialog.open(AddTaskComponent);
 
@@ -108,10 +224,68 @@ export class DragComponent implements OnInit {
     this.route.navigateByUrl("allusers")
   }
   submit(){
-    Swal.fire(
-      'Congrats!',
-      'You have completed this task!!',
-      'success'
+    // Swal.fire(
+    //   'Congrats!',
+    //   'You have completed this task!!',
+    //   'success'
+    // )
+  }
+  onInProgress(taskId:string){
+      this.taskService.moveTaskFromToDo(taskId).subscribe(
+        response => {
+          console.log(response)
+          location.reload();
+        }
+      )
+  }
+  onToDo(taskId:string){
+    this.taskService.moveTaskFromProgressToToDo(taskId).subscribe(
+      reponse => {
+        console.log(reponse)
+        location.reload();
+      }
+    )
+    
+  }
+  onCompleted(taskId:string){
+    // this.taskService.moveTaskFromProgressToCompleted(taskId).subscribe(
+    //   response => {
+    //     console.log(response)
+    //     location.reload()
+    //   }
+    // )
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You have completed this task?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, move it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.taskService.moveTaskFromProgressToCompleted(taskId).subscribe(
+          response => {
+            console.log(response)
+            location.reload()
+          }
+        )
+  
+        Swal.fire(
+          'Moved!',
+          'Your task has been moved to completed.',
+          'success'
+        )
+        // location.reload();
+      }
+    })
+  }
+  onArchive(taskId:string){
+    this.taskService.moveTaskFromCompletedToArchive(taskId).subscribe(
+      response => {
+        console.log(response)
+        location.reload()
+      }
     )
   }
   openTaskDetails(item:any){

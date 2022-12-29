@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { AlluserDetailsComponent } from './alluser-details/alluser-details.component';
 import { AssignTaskComponent } from './assign-task/assign-task.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 import { DragComponent } from './drag/drag.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
@@ -52,6 +53,10 @@ const routes: Routes = [{
 {
   path:"assign",
   component: AssignTaskComponent
+},
+{
+  path:"contact",
+  component:ContactUsComponent
 },
 {
   path: "",
