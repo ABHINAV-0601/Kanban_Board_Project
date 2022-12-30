@@ -35,7 +35,7 @@
             </div>
         </div>
 
-      <form>
+      <form #contactForm="ngForm">
         <div class="form">
             <div class="right">
               <div class="contact-form">
@@ -55,7 +55,7 @@
               </div>
   
               <div class="contact-form">
-                  <input type="submit" name="submit" (click)="onSubmit()">
+                  <input type="submit" name="submit" (click)="onSubmit()" [disabled]="!contactForm.valid">
               </div>
               </div>
           </div>
