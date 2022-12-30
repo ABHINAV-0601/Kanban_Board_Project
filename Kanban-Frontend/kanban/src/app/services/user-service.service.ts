@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class UserServiceService {
 
   constructor(private httpClient:HttpClient) { }
-
+  isLoggedIn: boolean = false;
   url:String = "http://localhost:9000/userdata"
 
   addUser(userObject:any){
@@ -33,6 +33,7 @@ export class UserServiceService {
   url2:String = "http://localhost:9000/authdata"
 
   login(object:any){
+    this.isLoggedIn = true;
     return this.httpClient.post(this.url2+"/login",object);
   }
 }

@@ -4,7 +4,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { AlluserDetailsComponent } from './alluser-details/alluser-details.component';
 import { AssignTaskComponent } from './assign-task/assign-task.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
+import { AuthGuardGuard } from './services/auth-guard.guard';
 import { DragComponent } from './drag/drag.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -24,15 +24,18 @@ const routes: Routes = [{
 },
 {
   path: "dashboard",
-  component: DragComponent
+  component: DragComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path: "add-task",
-  component: AddTaskComponent
+  component: AddTaskComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path: "edit-task/:taskId",
-  component: EditTaskComponent
+  component: EditTaskComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path: "home",
@@ -40,19 +43,23 @@ const routes: Routes = [{
 },
 {
   path: "user-details",
-  component: UserDetailsComponent
+  component: UserDetailsComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path: "allusers",
-  component: AlluserDetailsComponent
+  component: AlluserDetailsComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path:"update-profile/:emailId",
-  component: UpdateUserDetailsComponent
+  component: UpdateUserDetailsComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path:"assign",
-  component: AssignTaskComponent
+  component: AssignTaskComponent,
+  canActivate:[AuthGuardGuard]
 },
 {
   path:"contact",
