@@ -40,7 +40,7 @@ export class DragComponent implements OnInit {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.container.data[0]);
     }
     // console.log(event.previousIndex)
     // console.log(event.currentIndex)
@@ -263,6 +263,7 @@ export class DragComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, move it!'
     }).then((result) => {
+      location.reload()
       if (result.isConfirmed) {
         this.taskService.moveTaskFromProgressToCompleted(taskId).subscribe(
           response => {
