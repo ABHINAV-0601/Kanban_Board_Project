@@ -24,18 +24,18 @@ const routes: Routes = [{
 },
 {
   path: "dashboard",
-  component: DragComponent,
-  canActivate:[AuthGuardGuard]
+  component: DragComponent
+  
 },
 {
   path: "add-task",
-  component: AddTaskComponent,
-  canActivate:[AuthGuardGuard]
+  component: AddTaskComponent
+  
 },
 {
   path: "edit-task/:taskId",
-  component: EditTaskComponent,
-  canActivate:[AuthGuardGuard]
+  component: EditTaskComponent
+ 
 },
 {
   path: "home",
@@ -43,23 +43,23 @@ const routes: Routes = [{
 },
 {
   path: "user-details",
-  component: UserDetailsComponent,
-  canActivate:[AuthGuardGuard]
+  component: UserDetailsComponent
+  
 },
 {
   path: "allusers",
-  component: AlluserDetailsComponent,
-  canActivate:[AuthGuardGuard]
+  component: AlluserDetailsComponent
+  
 },
 {
   path:"update-profile/:emailId",
-  component: UpdateUserDetailsComponent,
-  canActivate:[AuthGuardGuard]
+  component: UpdateUserDetailsComponent
+  
 },
 {
   path:"assign",
-  component: AssignTaskComponent,
-  canActivate:[AuthGuardGuard]
+  component: AssignTaskComponent
+ 
 },
 {
   path:"contact",
