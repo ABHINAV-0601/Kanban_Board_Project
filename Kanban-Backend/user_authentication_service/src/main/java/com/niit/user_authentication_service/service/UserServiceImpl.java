@@ -43,4 +43,19 @@ public class UserServiceImpl implements UserService{
         javaMailSender.send(msg);
         return login;
     }
+
+    @Override
+    public User forgotPassword(String emailId) throws UserNotFoundException {
+        if(userRepository.findById(emailId).isEmpty()){
+            throw new UserNotFoundException();
+        }
+        User user = userRepository.findById(emailId).get();
+        String password = user.getPassword();
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(emailId);
+        msg.setSubject("Password");
+        msg.setText("Your login password is => " + password);
+        javaMailSender.send(msg);
+        return user;
+    }
 }

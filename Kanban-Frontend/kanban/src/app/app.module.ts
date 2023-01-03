@@ -47,6 +47,7 @@ import { UserDetailsDialogComponent } from './user-details-dialog/user-details-d
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     AssignTaskComponent,
     DisplayTaskComponent,
     UserDetailsDialogComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    ForgotPasswordComponent
 
   ],
   imports: [

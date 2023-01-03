@@ -50,4 +50,16 @@ public class UserController {
             return new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("forgotpassword/{emailId}")
+    public ResponseEntity<?> forgot(@PathVariable String emailId) throws UserNotFoundException {
+        try{
+            responseEntity = new ResponseEntity<>(userService.forgotPassword(emailId),HttpStatus.OK);
+        }catch (UserNotFoundException exception){
+            throw new UserNotFoundException();
+        }catch(Exception exception){
+            return new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

@@ -36,4 +36,8 @@ export class UserServiceService {
     this.isLoggedIn = true;
     return this.httpClient.post(this.url2+"/login",object);
   }
+
+  forgotPassword(email:String){
+    return this.httpClient.get(this.url2+"/forgotpassword/"+email)
+  }
 }

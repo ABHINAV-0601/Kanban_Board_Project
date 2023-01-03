@@ -38,12 +38,13 @@
                         </mat-error>
                     </mat-form-field>
                     <br>
-                   
+                    <!-- <button mat-raised-button color="accent" (click)="onForgot()">Forgot Password?</button> -->
                     <button mat-raised-button type="submit" color="accent" style="margin-left: 30px;" (click)="onSubmit()">Log In</button>
                 </form>
             </mat-card-content>
             <br>
             <p>Don't have an account?<a href="/register"> Register</a></p>
+            <p>Don't remember password?<a id="anchor" (click)="onForgot()" >Forgot Password</a></p>
         </mat-card>
    
     </section>

@@ -4,6 +4,8 @@ import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserServiceService } from '../services/user-service.service';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  constructor(private fb:FormBuilder,private route: Router,private userService:UserServiceService) { }
+  constructor(private fb:FormBuilder,private route: Router,private userService:UserServiceService, private dialog:MatDialog) { }
  
   loginForm = this.fb.group({
     emailId: ['', [Validators.required,Validators.email]],
@@ -68,4 +70,8 @@ export class LoginComponent implements OnInit {
     this.route.navigateByUrl("home")
   }
 
+  onForgot(){
+    // location.reload()
+    this.dialog.open(ForgotPasswordComponent)
+  }
 }
