@@ -76,4 +76,7 @@ export class EditTaskComponent implements OnInit {
     )
 
   }
+  onDashboard(){
+    this.route.navigateByUrl("dashboard")
+  }
 }

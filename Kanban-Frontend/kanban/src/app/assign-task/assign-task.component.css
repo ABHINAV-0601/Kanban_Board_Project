@@ -9,7 +9,10 @@
 #head {
     text-align: center;
 }
-
+mat-toolbar {
+    background-color: #897622;
+    width: 100%
+}
 h3 {
     font-family: 'Pacifico', cursive;
     font-size: xx-large;
@@ -23,7 +26,7 @@ h3 {
     
     padding: 50px;
     position: absolute;
-    top: 50px;
+    top: 80px;
     left: 350px;
     background-color: gainsboro;
     box-shadow: 3px 3px 3px 3px gray;
