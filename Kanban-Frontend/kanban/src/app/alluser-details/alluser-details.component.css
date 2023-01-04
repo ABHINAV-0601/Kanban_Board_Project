@@ -7,6 +7,7 @@ body{
     background-image: url("../../assets/usersbg.jpg");
     background-position: 100%;
     height: 700px;
+    background-size: cover;
     /* padding-bottom: 50%; */
     /* background-size: auto;
     background-repeat: repeat; */

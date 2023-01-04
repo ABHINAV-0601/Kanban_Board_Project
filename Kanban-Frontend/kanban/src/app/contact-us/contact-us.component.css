@@ -1,18 +1,28 @@
 
 body{
-    background-image: url('../../assets/contact-us-lettering.jpg');
+    background-image: url('../../assets/Image20230104144753.jpg');
     width: 100%;
-    height: 700px;
+    height: 722px;
     background-size: 100%;
     position: relative;
     background-repeat: no-repeat;
     font-family: 'Poppins', sans-serif;
-    color: black;
+    color:#fff;
 
+}
+.button1{
+    text-decoration: none;
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    
+}
+.button1 button{
+    border-radius: 60%;
 }
 mat-card{
     position: relative;
-    top: 40px;
+    top: 45px;
     background-color: black;
     opacity: 0.75;
     padding: 20px;

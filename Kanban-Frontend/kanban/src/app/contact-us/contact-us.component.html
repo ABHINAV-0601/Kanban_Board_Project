@@ -1,8 +1,11 @@
 <body>
+    <div class="back">
+        <a href="home" class="button1"><button mat-raised-button>Go Back</button></a>
+    </div>
     <div class="container">
         <header>
             <h1>Contact Us</h1>
-            <p>A kanban board is one of the tools that can be used to implement kanban to manage work at a personal or organizational level. Kanban boards visually depict work at various stages of a process using cards to represent work items and columns to represent each stage of the process. <a href="https://en.wikipedia.org/wiki/Kanban_board">Read More</a></p>
+            <p>A kanban board is one of the tools that can be used to implement kanban to manage work at a personal or organizational level. Kanban boards visually depict work at various stages of a process using cards to represent work items and columns to represent each stage of the process.</p> <a href="https://en.wikipedia.org/wiki/Kanban_board">Read More</a>
         </header>
         <div class="content">
             <div class="content-form">
@@ -35,7 +38,7 @@
             </div>
         </div>
 
-      <form #contactForm="ngForm">
+      <form>
         <div class="form">
             <div class="right">
               <div class="contact-form">
@@ -55,12 +58,12 @@
               </div>
   
               <div class="contact-form">
-                  <input type="submit" name="submit" (click)="onSubmit()" [disabled]="!contactForm.valid">
+                  <input type="submit" name="submit" (click)="onSubmit()">
               </div>
               </div>
           </div>
     </form>
-        <div class="media">
+        <div class="media" style="color: black;">
             <li><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></li>
             <li><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></li>
             <li><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></li>
