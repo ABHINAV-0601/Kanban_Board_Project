@@ -17,12 +17,18 @@ export class AlluserDetailsComponent implements OnInit{
 
   userData:any
   page:any;
-  
+  user:any
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(
       response => {
         console.log(response)
         this.userData = response;
+      }
+    )
+    this.userService.getSpecificUser().subscribe(
+      response => {
+        console.log(response)
+        this.user = response
       }
     )
   }

@@ -2,10 +2,20 @@
   <mat-toolbar-row>
 
     <label style="color: azure;margin-left: 1%;"><b>Kanban Board</b></label>
-    <a href="user-details"><label style="color: azure; margin-left: 1000px;font-size: medium;">Hi, {{userData.fullName}}</label></a>
+    <!-- <a href="user-details"><label style="color: azure; margin-left: 1000px;font-size: medium;">Hi, {{userData.fullName}}</label></a>
     <label (click)="onClick()" style="color: azure;margin-left: 3%;font-size: medium;">All Users</label>
-    <label (click)="onLogout()" style="color: azure;margin-left: 3%;font-size: medium;">Log Out</label>
+    <label (click)="onLogout()" style="color: azure;margin-left: 3%;font-size: medium;">Log Out</label> -->
 
+    <div style="background-color: #897622; margin-left: 1000px;">
+
+      
+      <mat-select placeholder="Hi, {{userData.fullName}}">
+        <mat-option value="option1" style="background-color: #897622; margin-top: -8px; color: azure;"><a href="user-details"><span style=" color: azure">My Profile</span></a></mat-option>
+        <mat-option value="option2" (click)="onClick()"  style="background-color: #897622; color: azure;"><span style=" color: azure">All Users</span></mat-option>
+        <mat-option value="option3" (click)="onLogout()" style="background-color: #897622; margin-bottom: -8px;"><span style=" color: azure">Log Out</span></mat-option>
+      </mat-select>
+
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
