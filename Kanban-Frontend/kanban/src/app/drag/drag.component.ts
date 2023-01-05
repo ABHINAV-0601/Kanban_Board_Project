@@ -9,6 +9,7 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { TaskServiceService } from '../services/task-service.service';
 import { Router } from '@angular/router';
 import { DisplayTaskComponent } from '../display-task/display-task.component';
+import { UserServiceService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-drag',
@@ -17,12 +18,19 @@ import { DisplayTaskComponent } from '../display-task/display-task.component';
 })
 export class DragComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private taskService: TaskServiceService, private route: Router) { }
+  userData:any;
+  constructor(private dialog: MatDialog, private taskService: TaskServiceService, private route: Router,private userService:UserServiceService) { }
   ngOnInit(): void {
     this.getAllTasks();
     this.getAllProgressTasks();
     this.getAllArchivedTasks();
     this.getAllCompletedTasks();
+    this.userService.getSpecificUser().subscribe(
+      response => {
+        console.log(response);
+        this.userData = response;
+      }
+    )
   }
 
   todo: any

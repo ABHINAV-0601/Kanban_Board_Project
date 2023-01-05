@@ -15,27 +15,31 @@ export class AssignTaskComponent implements OnInit{
 
   maxDate: Date = new Date();
   random:any = Math.floor(Math.random() * 1000);
-
+  user:any
   constructor(private userService:UserServiceService,private fb:FormBuilder, private popup:NgToastService,private route:Router){
     this.maxDate.setDate(this.maxDate.getDate() + 1);
     this.taskId?.setValue(this.random)
+   
   }
 
-  user:any
-
+  
   ngOnInit(): void {
-    // this.userService.getSpecificUser().subscribe(
-    //   response => {
-    //     console.log(response)
-    //     this.user = response
-    //   }
-    // )
+    this.userService.getSpecificUser().subscribe(
+      response => {
+        console.log(response)
+        this.user = response
+        console.log(this.user);
+        console.log(this.user.fullName)
+        this.assignee?.setValue(this.user?.fullName)
+      }
+    )
+    
   }
 
   addForm = this.fb.group({
     taskId: [''],
     taskTitle: ['', [Validators.required, Validators.minLength(10)]],
-    assignee: ['', [Validators.required, Validators.pattern(/^[A-Z].*/)]],
+    assignee: [''],
     taskDescription: ['', [Validators.required, Validators.minLength(20)]],
     taskPriority: [''],
     taskDeadline: ['', Validators.required]

@@ -24,16 +24,16 @@
                             Task Id is Compulsory.
                         </mat-error>
                     </mat-form-field> -->
-                    <mat-form-field class="field" appearance="outline">
+                    <!-- <mat-form-field class="field" appearance="outline">
                         <mat-label>Assignee</mat-label>
-                        <input matInput placeholder="Assignee" formControlName="assignee" id="assignee">
+                        <input matInput placeholder="Assignee" formControlName="assignee" id="assignee" value="{{user.fullName}}">
                         <mat-error *ngIf="assignee?.hasError('required')">
                            This field can't be blank.
                         </mat-error>
                         <mat-error *ngIf="assignee?.hasError('pattern')">
                             Assignee name should start with capital.
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </div>
 
                 <mat-form-field appearance="outline">

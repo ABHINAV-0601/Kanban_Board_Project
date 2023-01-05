@@ -29,7 +29,7 @@
                 <mat-error *ngIf="emailId?.hasError('required')">
                     Email is required.
                 </mat-error>
-                <mat-error *ngIf="emailId?.hasError('email')">
+                <mat-error *ngIf="emailId?.hasError('pattern')">
                     Email valid email address.
                 </mat-error>
             </mat-form-field>
