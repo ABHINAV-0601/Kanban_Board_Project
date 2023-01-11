@@ -106,8 +106,12 @@ public class UserServiceImpl implements UserService{
             msg.setSubject("Task Assigned");
             msg.setText("A task has been assigned to you. Please login to know further details!!");
             javaMailSender.send(msg);
+
             return userRepository.save(user);
+
         }
        throw new MaximumTasksReachedException();
+
     }
+
 }
