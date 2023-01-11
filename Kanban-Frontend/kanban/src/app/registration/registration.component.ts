@@ -79,6 +79,16 @@ export class RegistrationComponent implements OnInit{
         )
        this.route.navigateByUrl("/login")
 
+      },(err) => {
+        console.log(err)
+        
+        // alert("invalid credentials")
+        Swal.fire({
+          title: 'Error!',
+          text: 'Email is already registered, Please try to login!!',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
       }
     )
   }

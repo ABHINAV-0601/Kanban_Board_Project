@@ -32,7 +32,7 @@ export class ForgotPasswordComponent implements OnInit{
           icon: 'error',
           confirmButtonText: 'OK'
         })
-        location.reload()
+        // location.reload()
       }
     )
   }
